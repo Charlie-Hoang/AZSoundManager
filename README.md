@@ -114,7 +114,8 @@ AZSoundItem *item = [AZSoundItem soundItemWithContentsOfFile:filePath];
 - (void)pause;
 - (void)stop;
 - (void)restart;
-- (void)playAtSecond:(NSTimeInterval)second;
+- (void)playAtSecond:(NSInteger)second;
+- (void)rewindToSecond:(NSInteger)second;
 ```
 
 ###Get actual info about playing item
