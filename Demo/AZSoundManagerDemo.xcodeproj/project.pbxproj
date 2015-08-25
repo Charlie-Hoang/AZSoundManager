@@ -11,10 +11,10 @@
 		5B298D061B73ABA5004C9B15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B298D051B73ABA5004C9B15 /* AppDelegate.m */; };
 		5B298D0C1B73ABA5004C9B15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B298D0A1B73ABA5004C9B15 /* Main.storyboard */; };
 		5B298D0E1B73ABA5004C9B15 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B298D0D1B73ABA5004C9B15 /* Images.xcassets */; };
-		5B298D291B73AC12004C9B15 /* AZSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B298D281B73AC12004C9B15 /* AZSoundManager.m */; };
-		5B298D301B73ADE9004C9B15 /* AZSoundItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B298D2F1B73ADE9004C9B15 /* AZSoundItem.m */; };
 		5B2A2BAC1B73F341000FEDFD /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A2BAB1B73F341000FEDFD /* PlayerViewController.m */; };
 		5B2A2BB21B74E5D9000FEDFD /* demo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5B2A2BB11B74E5D9000FEDFD /* demo.mp3 */; };
+		5B5DAD781B86155300991A65 /* AZSoundItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5DAD751B86155300991A65 /* AZSoundItem.m */; };
+		5B5DAD791B86155300991A65 /* AZSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5DAD771B86155300991A65 /* AZSoundManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,13 +25,13 @@
 		5B298D051B73ABA5004C9B15 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5B298D0B1B73ABA5004C9B15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B298D0D1B73ABA5004C9B15 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5B298D271B73AC12004C9B15 /* AZSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSoundManager.h; sourceTree = "<group>"; };
-		5B298D281B73AC12004C9B15 /* AZSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSoundManager.m; sourceTree = "<group>"; };
-		5B298D2E1B73ADE9004C9B15 /* AZSoundItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSoundItem.h; sourceTree = "<group>"; };
-		5B298D2F1B73ADE9004C9B15 /* AZSoundItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSoundItem.m; sourceTree = "<group>"; };
 		5B2A2BAA1B73F341000FEDFD /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		5B2A2BAB1B73F341000FEDFD /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
 		5B2A2BB11B74E5D9000FEDFD /* demo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo.mp3; sourceTree = "<group>"; };
+		5B5DAD741B86155300991A65 /* AZSoundItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSoundItem.h; sourceTree = "<group>"; };
+		5B5DAD751B86155300991A65 /* AZSoundItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSoundItem.m; sourceTree = "<group>"; };
+		5B5DAD761B86155300991A65 /* AZSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSoundManager.h; sourceTree = "<group>"; };
+		5B5DAD771B86155300991A65 /* AZSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSoundManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,7 @@
 		5B298CF41B73ABA5004C9B15 = {
 			isa = PBXGroup;
 			children = (
-				5B298D261B73ABED004C9B15 /* AZSoundManager */,
+				5B5DAD731B86155300991A65 /* AZSoundManager */,
 				5B298CFF1B73ABA5004C9B15 /* AZSoundManagerDemo */,
 				5B298CFE1B73ABA5004C9B15 /* Products */,
 			);
@@ -85,18 +85,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5B298D261B73ABED004C9B15 /* AZSoundManager */ = {
-			isa = PBXGroup;
-			children = (
-				5B298D271B73AC12004C9B15 /* AZSoundManager.h */,
-				5B298D281B73AC12004C9B15 /* AZSoundManager.m */,
-				5B298D2E1B73ADE9004C9B15 /* AZSoundItem.h */,
-				5B298D2F1B73ADE9004C9B15 /* AZSoundItem.m */,
-			);
-			name = AZSoundManager;
-			path = ../../AZSoundManager;
-			sourceTree = "<group>";
-		};
 		5B298D2A1B73AD20004C9B15 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +100,18 @@
 				5B2A2BB11B74E5D9000FEDFD /* demo.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		5B5DAD731B86155300991A65 /* AZSoundManager */ = {
+			isa = PBXGroup;
+			children = (
+				5B5DAD741B86155300991A65 /* AZSoundItem.h */,
+				5B5DAD751B86155300991A65 /* AZSoundItem.m */,
+				5B5DAD761B86155300991A65 /* AZSoundManager.h */,
+				5B5DAD771B86155300991A65 /* AZSoundManager.m */,
+			);
+			name = AZSoundManager;
+			path = ../AZSoundManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,10 +185,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B298D061B73ABA5004C9B15 /* AppDelegate.m in Sources */,
-				5B298D291B73AC12004C9B15 /* AZSoundManager.m in Sources */,
+				5B5DAD791B86155300991A65 /* AZSoundManager.m in Sources */,
 				5B298D031B73ABA5004C9B15 /* main.m in Sources */,
-				5B298D301B73ADE9004C9B15 /* AZSoundItem.m in Sources */,
 				5B2A2BAC1B73F341000FEDFD /* PlayerViewController.m in Sources */,
+				5B5DAD781B86155300991A65 /* AZSoundItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
