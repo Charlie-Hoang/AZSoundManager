@@ -12,10 +12,10 @@ To use the AZSoundManager:
 
 1. Just drag the class files into your project:
 
-    AZSoundManager.h
-    AZSoundManager.m
-    AZSoundItem.h
-    AZSoundItem.m
+   * AZSoundManager.h
+   * AZSoundManager.m
+   * AZSoundItem.h
+   * AZSoundItem.m
 
 2. Add the AVFoundation framework.
 
