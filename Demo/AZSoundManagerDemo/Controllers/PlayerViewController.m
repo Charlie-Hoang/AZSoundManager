@@ -131,4 +131,11 @@
     self.manager.pan = 2 * slider.value - 1.0f;
 }
 
+#pragma mark - Remote Control
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    [self.manager remoteControlReceivedWithEvent:event];
+}
+
 @end

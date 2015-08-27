@@ -89,6 +89,7 @@
 - (void)timerFired:(NSTimer*)timer
 {
     [self.currentItem updateCurrentTime:self.player.currentTime];
+    [self updatePlayingNowInfo];
     
     if (self.progressBlock)
     {
@@ -104,7 +105,11 @@
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:item.URL error:nil];
     self.player.delegate = self;
     [self.player prepareToPlay];
+    
+    [self updatePlayingNowInfo];
 }
+
+#pragma mark Actions
 
 - (void)playSoundItem:(AZSoundItem*)item
 {
@@ -161,11 +166,56 @@
     self.player.currentTime = second;
 }
 
+#pragma mark Item Info
+
 - (void)getItemInfoWithProgressBlock:(progressBlock)progressBlock
                      completionBlock:(completionBlock)completionBlock
 {
     self.progressBlock = progressBlock;
     self.completionBlock = completionBlock;
+}
+
+#pragma mark Remote Control
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    if (event.type == UIEventTypeRemoteControl)
+    {
+        switch (event.subtype)
+        {
+            case UIEventSubtypeRemoteControlPlay:
+                [self play];
+                break;
+                
+            case UIEventSubtypeRemoteControlPause:
+                [self pause];
+                break;
+                
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+            {
+                if (self.player.isPlaying)
+                    [self pause];
+                else
+                    [self play];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+#pragma mark Playing Now
+
+- (void)updatePlayingNowInfo
+{
+    NSDictionary *playingNowInfo = @{MPMediaItemPropertyTitle: self.currentItem.name,
+                                     MPMediaItemPropertyPlaybackDuration: @(self.currentItem.duration),
+                                     MPNowPlayingInfoPropertyPlaybackRate: @(self.player.rate),
+                                     MPNowPlayingInfoPropertyElapsedPlaybackTime: @(self.player.currentTime)
+                                     };
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = playingNowInfo;
 }
 
 #pragma mark - AVAudioPlayerDelegate

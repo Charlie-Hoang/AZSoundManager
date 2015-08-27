@@ -1,7 +1,7 @@
 //
 //  AZSoundManager.h
 //
-//  Version 1.1.0
+//  Version 1.2.0
 //
 //  Created by Aleksey Zunov on 06.08.15.
 //  Copyright (c) 2015 aleksey.zunov@gmail.com. All rights reserved.
@@ -30,6 +30,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "AZSoundItem.h"
 
 typedef void (^progressBlock)(AZSoundItem *item);
@@ -64,5 +65,7 @@ typedef NS_ENUM(NSInteger, AZSoundStatus)
 
 - (void)getItemInfoWithProgressBlock:(progressBlock)progressBlock
                      completionBlock:(completionBlock)completionBlock;
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event;
 
 @end
