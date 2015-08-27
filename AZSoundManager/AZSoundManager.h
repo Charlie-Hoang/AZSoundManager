@@ -1,7 +1,7 @@
 //
 //  AZSoundManager.h
 //
-//  Version 1.0.1
+//  Version 1.1.0
 //
 //  Created by Aleksey Zunov on 06.08.15.
 //  Copyright (c) 2015 aleksey.zunov@gmail.com. All rights reserved.
@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, AZSoundStatus)
 @property (nonatomic, readonly) AZSoundStatus status;
 @property (nonatomic, readonly) AZSoundItem *currentItem;
 @property (nonatomic, assign) float volume;
+@property (nonatomic, assign) float pan;
 
 - (void)preloadSoundItem:(AZSoundItem*)item;
 - (void)playSoundItem:(AZSoundItem*)item;

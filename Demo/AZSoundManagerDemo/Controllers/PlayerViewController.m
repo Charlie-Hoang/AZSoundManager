@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *remainingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
+@property (weak, nonatomic) IBOutlet UISlider *panSlider;
 
 @end
 
@@ -60,6 +61,11 @@
     
     // Volume slider
     self.volumeSlider.value = self.manager.volume;
+    
+    // Pan slider
+    self.panSlider.minimumTrackTintColor = [UIColor whiteColor];
+    self.panSlider.maximumTrackTintColor = [UIColor whiteColor];
+    self.panSlider.value = (self.manager.pan + 1.0f) / 2.0f;
 }
 
 #pragma mark - Private Functions
@@ -117,6 +123,12 @@
 {
     UISlider *slider = (UISlider*)sender;
     self.manager.volume = slider.value;
+}
+
+- (IBAction)panSliderChanged:(id)sender
+{
+    UISlider *slider = (UISlider*)sender;
+    self.manager.pan = 2 * slider.value - 1.0f;
 }
 
 @end

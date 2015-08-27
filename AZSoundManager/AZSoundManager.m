@@ -37,6 +37,7 @@
     if (self = [super init])
     {
         self.volume = 1.0f;
+        self.pan = 0.0f;
         self.status = AZSoundStatusNotStarted;
         
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -54,6 +55,15 @@
     {
         _volume = volume;
         self.player.volume = volume;
+    }
+}
+
+- (void)setPan:(float)pan
+{
+    if (_pan != pan)
+    {
+        _pan = pan;
+        self.player.pan = pan;
     }
 }
 
