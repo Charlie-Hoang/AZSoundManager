@@ -84,6 +84,9 @@ The current item of audio player.
 
 The sound volume. Should be in the range 0 - 1.
 
+   	@property (nonatomic, assign) float pan;
+    
+The left/right stereo pan. Should be in the range from -1.0 to 1.0.
 
 ##Usage
 
