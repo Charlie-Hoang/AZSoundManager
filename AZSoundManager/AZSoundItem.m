@@ -100,9 +100,9 @@
 
 #pragma mark - Public Functions
 
-- (void)updateInfo:(AVPlayerItem*)item
+- (void)updateCurrentTime:(NSTimeInterval)currentTime
 {
-    self.currentTime = CMTimeGetSeconds(item.currentTime);
+    self.currentTime = currentTime;
 }
 
 @end

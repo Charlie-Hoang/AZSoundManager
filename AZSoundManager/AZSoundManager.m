@@ -7,9 +7,9 @@
 
 #import "AZSoundManager.h"
 
-@interface AZSoundManager ()
+@interface AZSoundManager () <AVAudioPlayerDelegate>
 
-@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 @property (nonatomic) AZSoundStatus status;
 @property (nonatomic, strong) AZSoundItem *currentItem;
@@ -78,30 +78,11 @@
 
 - (void)timerFired:(NSTimer*)timer
 {
-    [self.currentItem updateInfo:self.player.currentItem];
+    [self.currentItem updateCurrentTime:self.player.currentTime];
     
     if (self.progressBlock)
     {
         self.progressBlock(self.currentItem);
-    }
-    
-    NSInteger currentTime = CMTimeGetSeconds(self.player.currentItem.asset.duration);
-    NSInteger duration = CMTimeGetSeconds(self.player.currentItem.currentTime);
-    
-    if (currentTime == duration)
-    {
-        [self.player pause];
-        self.status = AZSoundStatusFinished;
-        
-        [self stopTimer];
-        
-        [self.player seekToTime:CMTimeMake(0, 1) completionHandler:^(BOOL finished) {
-            [self.currentItem updateInfo:self.player.currentItem];
-            if (self.completionBlock)
-            {
-                self.completionBlock();
-            }
-        }];
     }
 }
 
@@ -110,8 +91,9 @@
 - (void)preloadSoundItem:(AZSoundItem*)item
 {
     self.currentItem = item;
-    self.player = [[AVPlayer alloc] initWithURL:item.URL];
-    self.player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:item.URL error:nil];
+    self.player.delegate = self;
+    [self.player prepareToPlay];
 }
 
 - (void)playSoundItem:(AZSoundItem*)item
@@ -144,7 +126,7 @@
 {
     if (!self.player) return;
     
-    [self.player pause];
+    [self.player stop];
     self.player = nil;
     self.currentItem = nil;
     self.status = AZSoundStatusNotStarted;
@@ -166,8 +148,7 @@
 - (void)rewindToSecond:(NSInteger)second
 {
     if (!self.player) return;
-
-    [self.player seekToTime:CMTimeMake(second, 1)];
+    self.player.currentTime = second;
 }
 
 - (void)getItemInfoWithProgressBlock:(progressBlock)progressBlock
@@ -175,6 +156,20 @@
 {
     self.progressBlock = progressBlock;
     self.completionBlock = completionBlock;
+}
+
+#pragma mark - AVAudioPlayerDelegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    self.status = AZSoundStatusFinished;
+    
+    [self stopTimer];
+
+    if (self.completionBlock && flag)
+    {
+        self.completionBlock();
+    }
 }
 
 @end

@@ -27,6 +27,6 @@
 @property (nonatomic, readonly) NSString *artist;
 @property (nonatomic, readonly) UIImage *artwork;
 
-- (void)updateInfo:(AVPlayerItem*)item;
+- (void)updateCurrentTime:(NSTimeInterval)currentTime;
 
 @end
