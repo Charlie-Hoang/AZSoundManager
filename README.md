@@ -17,8 +17,9 @@ To use the AZSoundManager:
    * AZSoundItem.h
    * AZSoundItem.m
 
-2. Add the AVFoundation framework.
-
+2. Add these frameworks:
+   * AVFoundation.framework
+   * MediaPlayer.framework
 
 ##Classes
 
@@ -134,6 +135,17 @@ AZSoundItem *item = [AZSoundItem soundItemWithContentsOfFile:filePath];
 } completionBlock:^{
     NSLog(@"finish playing");
 }];
+```
+
+###Playing audio in background
+
+In your plist just add value  
+```
+App plays audio or streams audio/video using AirPlay
+```
+for key
+```
+Required background modes
 ```
 
 License
