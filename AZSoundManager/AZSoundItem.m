@@ -38,7 +38,7 @@
 
 - (instancetype)initWithContentsOfFile:(NSString*)path
 {
-    return [self initWithContentsOfURL:path ? [NSURL fileURLWithPath:path]: nil];
+    return [self initWithContentsOfURL:path ? [NSURL fileURLWithPath:path] : nil];
 }
 
 - (instancetype)initWithContentsOfURL:(NSURL*)URL
@@ -46,7 +46,10 @@
     if (self = [super init])
     {
         self.URL = URL;
-        [self loadMetadata];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self loadMetadata];
+        });
     }
     return self;
 }
@@ -56,6 +59,19 @@
 - (NSString*)name
 {
     return [self.URL.path lastPathComponent];
+}
+
+#pragma mark - Parent Functiosn
+
+- (BOOL)isEqual:(id)object
+{
+    if (!object)
+        return NO;
+    if (![object isKindOfClass:[AZSoundItem class]])
+        return NO;
+    
+    AZSoundItem *item = (AZSoundItem*)object;
+    return [self.URL isEqual:item.URL];
 }
 
 #pragma mark - Private Functions
