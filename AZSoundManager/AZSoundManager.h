@@ -1,7 +1,7 @@
 //
 //  AZSoundManager.h
 //
-//  Version 1.2.0
+//  Version 1.2.1
 //
 //  Created by Aleksey Zunov on 06.08.15.
 //  Copyright (c) 2015 aleksey.zunov@gmail.com. All rights reserved.
@@ -34,11 +34,13 @@
 #import "AZSoundItem.h"
 
 typedef void (^progressBlock)(AZSoundItem *item);
-typedef void (^completionBlock)();
+typedef void (^finishBlock)(AZSoundItem *item);
+typedef void (^completionBlock)(BOOL success, NSError *error);
 
 typedef NS_ENUM(NSInteger, AZSoundStatus)
 {
     AZSoundStatusNotStarted = 0,
+    AZSoundStatusPreparing,
     AZSoundStatusPlaying,
     AZSoundStatusPaused,
     AZSoundStatusFinished
@@ -54,6 +56,7 @@ typedef NS_ENUM(NSInteger, AZSoundStatus)
 @property (nonatomic, assign) float pan;
 
 - (void)preloadSoundItem:(AZSoundItem*)item;
+- (void)preloadSoundItem:(AZSoundItem*)item completionBlock:(completionBlock)completionBlock;
 - (void)playSoundItem:(AZSoundItem*)item;
 
 - (void)play;
@@ -64,7 +67,7 @@ typedef NS_ENUM(NSInteger, AZSoundStatus)
 - (void)rewindToSecond:(NSInteger)second;
 
 - (void)getItemInfoWithProgressBlock:(progressBlock)progressBlock
-                     completionBlock:(completionBlock)completionBlock;
+                         finishBlock:(finishBlock)finishBlock;
 
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event;
 

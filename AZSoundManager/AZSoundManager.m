@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSTimer *infoTimer;
 @property (nonatomic, copy) progressBlock progressBlock;
-@property (nonatomic, copy) completionBlock completionBlock;
+@property (nonatomic, copy) finishBlock finishBlock;
 
 @end
 
@@ -101,20 +101,53 @@
 
 - (void)preloadSoundItem:(AZSoundItem*)item
 {
+    [self preloadSoundItem:item completionBlock:nil];
+}
+
+- (void)preloadSoundItem:(AZSoundItem*)item completionBlock:(completionBlock)completionBlock
+{
+    self.status = AZSoundStatusPreparing;
     self.currentItem = item;
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:item.URL error:nil];
-    self.player.delegate = self;
-    [self.player prepareToPlay];
     
-    [self updatePlayingNowInfo];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *data = nil;
+        if (![item.URL.absoluteString hasPrefix:@"file://"])
+        {
+            data = [NSData dataWithContentsOfURL:item.URL];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            NSError *error = nil;
+            if ([item.URL.absoluteString hasPrefix:@"file://"])
+                self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:item.URL error:&error];
+            else
+                self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+            if (error)
+            {
+                self.currentItem = nil;
+                
+                if (completionBlock)
+                    completionBlock(NO, error);
+            }
+            else
+            {
+                self.player.delegate = self;
+                [self updatePlayingNowInfo];
+                
+                if (completionBlock)
+                    completionBlock(YES, nil);
+            }
+        });
+    });
 }
 
 #pragma mark Actions
 
 - (void)playSoundItem:(AZSoundItem*)item
 {
-    [self preloadSoundItem:item];
-    [self play];
+    [self preloadSoundItem:item completionBlock:^(BOOL success, NSError *error) {
+        if (success) [self play];
+    }];
 }
 
 - (void)play
@@ -169,10 +202,10 @@
 #pragma mark Item Info
 
 - (void)getItemInfoWithProgressBlock:(progressBlock)progressBlock
-                     completionBlock:(completionBlock)completionBlock
+                         finishBlock:(finishBlock)finishBlock
 {
     self.progressBlock = progressBlock;
-    self.completionBlock = completionBlock;
+    self.finishBlock = finishBlock;
 }
 
 #pragma mark Remote Control
@@ -226,9 +259,9 @@
     
     [self stopTimer];
 
-    if (self.completionBlock && flag)
+    if (self.finishBlock && flag)
     {
-        self.completionBlock();
+        self.finishBlock(self.currentItem);
     }
 }
 

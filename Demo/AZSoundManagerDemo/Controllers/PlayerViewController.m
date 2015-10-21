@@ -55,7 +55,7 @@
         self.progressLabel.text = [self convertTime:item.currentTime];
         self.remainingLabel.text = [NSString stringWithFormat:@"-%@", [self convertTime:remainingTime]];
         self.playSlider.value = item.currentTime / item.duration;
-    } completionBlock:^{
+    } finishBlock:^(AZSoundItem *item) {
         NSLog(@"finish playing");
     }];
     
